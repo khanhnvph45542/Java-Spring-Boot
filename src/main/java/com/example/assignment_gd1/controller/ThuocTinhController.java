@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -79,10 +80,9 @@ public class ThuocTinhController {
         mauSacService.deleteMS(idMauSac);
         return "redirect:thuoctinh";
     }
-    @GetMapping("/updateMS")
-    public String updateMS(Model model,HttpServletRequest req,HttpSession session) {
-        Integer idMauSac = Integer.parseInt(req.getParameter("idMauSac"));
-        model.addAttribute("ms",mauSacService.getByIDMS(idMauSac));
+    @PostMapping("/updateMS")
+    public String updateMS(@RequestBody MauSac mauSac) {
+        mauSacService.updateMS(mauSac);
         return "update/updateMS";
     }
 
