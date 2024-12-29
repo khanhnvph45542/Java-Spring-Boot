@@ -19,24 +19,19 @@ public class KichThuocService {
     public List<KichThuoc> getListKichThuoc() {
         return kichThuocRepo.findAll();
     }
-//    public KichThuoc getBYIDKT(int idKT){
-//        for (KichThuoc kichThuoc:listKichThuoc ) {
-//            if (kichThuoc.getIdKichThuoc()== idKT){
-//                return kichThuoc;
-//
-//            }
-//        }
-//        return null;
-//    }
-//    public ArrayList<KichThuoc> ListIDKT(int idKT) {
-//        ArrayList<KichThuoc> list = new ArrayList<>();
-//        for (KichThuoc kichThuoc:listKichThuoc ) {
-//            if (kichThuoc.getIdKichThuoc() == idKT){
-//                list.add(kichThuoc);
-//            }
-//        }
-//        return list;
-//    }
+    public KichThuoc getBYIDKT(int idKT){
+
+        return kichThuocRepo.findById(idKT).get();
+    }
+    public ArrayList<KichThuoc> ListIDKT(int idKT) {
+        ArrayList<KichThuoc> list = new ArrayList<>();
+        for (KichThuoc kichThuoc:getListKichThuoc() ) {
+            if (kichThuoc.getIdKichThuoc() == idKT){
+                list.add(kichThuoc);
+            }
+        }
+        return list;
+    }
     public List<KichThuoc> TrueListIDKT() {
         ArrayList<KichThuoc> listkt = new ArrayList<>();
         for (KichThuoc kichThuoc:getListKichThuoc() ) {
@@ -47,34 +42,31 @@ public class KichThuocService {
         return listkt;
     }
 
-//    public KichThuoc getByIDKHTrue(int idKT) {
-//        for (KichThuoc kichThuoc:listKichThuoc ) {
-//            if (kichThuoc.getIdKichThuoc() == idKT && kichThuoc.isTrangThai() == true){
-//                return kichThuoc;
-//            }
-//        }
-//        return null;
-//    }
-//    public void deleteKT(int idKT){
-//        KichThuoc kichThuoc = getBYIDKT(idKT);
-//        if (kichThuoc!=null){
-//            listKichThuoc.remove(kichThuoc);
-//        }
-//    }
-//    public void updateKT(KichThuoc kichThuoc){
-//        for (int i = 0; i < listKichThuoc.size(); i++) {
-//            if (listKichThuoc.get(i).getIdKichThuoc() == kichThuoc.getIdKichThuoc()){
-//                listKichThuoc.set(i,kichThuoc);
-//            }
-//        }
-//    }
+    public KichThuoc getByIDKHTrue(int idKT) {
+        for (KichThuoc kichThuoc:getListKichThuoc() ) {
+            if (kichThuoc.getIdKichThuoc() == idKT && kichThuoc.isTrangThai() == true){
+                return kichThuoc;
+            }
+        }
+        return null;
+    }
+    public void deleteKT(int idKT){
+       kichThuocRepo.deleteById(idKT);
+    }
+    public void updateKT(KichThuoc kichThuoc){
+        try {
+            kichThuocRepo.save(kichThuoc);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 //
-//    public void addKT(KichThuoc kichThuoc){
-//        try {
-//            listKichThuoc.add(kichThuoc);
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-//    }
+    public void addKT(KichThuoc kichThuoc){
+        try {
+            kichThuocRepo.save(kichThuoc);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
 }

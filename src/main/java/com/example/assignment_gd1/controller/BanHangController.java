@@ -47,7 +47,7 @@ public class BanHangController {
             return "banhang";
     }
     @RequestMapping("/getByIDHD")
-    public String getString(Model model,
+    public String getString(
                             HttpServletRequest req,
                             HttpSession session) {
         Integer idHD = Integer.parseInt(req.getParameter("idHoaDon"));
@@ -108,9 +108,9 @@ public class BanHangController {
 
         session.setAttribute("listHDCT", hoaDonChiTietService.getByIDHD(idHoaDon));
         session.setAttribute("tongtien",hoaDonChiTietService.tongTien(idHoaDon));
-        Integer spdamua = hoaDonChiTietService.soluongspdamua(idHoaDon,idSPCT);
+//        Integer spdamua = hoaDonChiTietService.soluongspdamua(idHoaDon,idSPCT);
         Integer soluongtong = spct.getSoLuong();
-        Integer sospConLai = soluongtong-spdamua;
+        Integer sospConLai = soluongtong-sl;
         sanPhamChiTietService.updatesoLuong(idSPCT,sospConLai);
         sanPhamChiTietService.updateTrangThai(idSPCT);
 
@@ -249,12 +249,14 @@ public class BanHangController {
         Integer idHoaDon = Integer.parseInt(req.getParameter("idHoaD"));
         Integer soLuong = Integer.parseInt(req.getParameter("soLuong"));
         Integer soLuongThayDoi = Integer.parseInt(sl);
+        System.out.println(soLuongThayDoi);
         SanPhamChiTiet spct = sanPhamChiTietService.getByIdSPCT(idSPCTGH);
-//        HoaDonChiTiet hoaDonChiTiet = hoaDonChiTietService.hoaDonChiTiet(idHDCT);
         Integer soluongtong = spct.getSoLuong();
         Integer sospConLai = soluongtong-soLuongThayDoi + soLuong;
         sanPhamChiTietService.updatesoLuong(idSPCTGH,sospConLai);
-        hoaDonChiTietService.updatesoluongHDCT(idHDCT,soLuongThayDoi);
+        hoaDonChiTietService.updatesoluongHDCT(idHoaDon,idSPCTGH,soLuongThayDoi);
+//        Integer idHD = Integer.parseInt(req.getParameter("idHoaDon"));
+        session.setAttribute("listHDCT", hoaDonChiTietService.getByIDHD(idHoaDon));
         session.setAttribute("tongtien",hoaDonChiTietService.tongTien(idHoaDon));
         return "redirect:banhang";
     }

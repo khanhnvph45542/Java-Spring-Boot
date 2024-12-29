@@ -19,52 +19,48 @@ public class MauSacService {
         return mauSacRepo.findAll();
     }
 
-//    public MauSac getByIDMS(int idMS){
-//        for (MauSac mauSac: listMS ){
-//            if (mauSac.getIdMauSac() == idMS){
-//                return mauSac;
-//            }
-//        }
-//        return null;
-//    }
+    public MauSac getByIDMS(int idMS) {
+        return mauSacRepo.findById(idMS).get();
+    }
 
-//    public ArrayList<MauSac> ListIDMS(int idMS) {
-//        ArrayList<MauSac> list = new ArrayList<>();
-//        for (MauSac mauSac:listMS ) {
-//            if (mauSac.getIdMauSac() == idMS){
-//                list.add(mauSac);
-//            }
-//        }
-//        return list;
-//    }
-    public ArrayList<MauSac> TrueListIDMS() {
+    public ArrayList<MauSac> ListIDMS(int idMS) {
         ArrayList<MauSac> list = new ArrayList<>();
-        for (MauSac mauSac:getListMS() ) {
-            if (mauSac.isTrangThai() == true){
+        for (MauSac mauSac : getListMS()) {
+            if (mauSac.getIdMauSac() == idMS) {
                 list.add(mauSac);
             }
         }
         return list;
     }
-//    public void deleteMS(int idMS){
-//        MauSac mauSac = getByIDMS(idMS);
-//        if (mauSac!=null){
-//            listMS.remove(mauSac);
-//        }
-//    }
-//    public void updateMS(MauSac mauSac){
-//        for (int i = 0; i < listMS.size(); i++) {
-//            if (listMS.get(i).getIdMauSac() == mauSac.getIdMauSac()){
-//                listMS.set(i,mauSac);
-//            }
-//        }
-//    }
-//
-//    public void addMS(MauSac mauSac){
-//        try {
-//            listMS.add(mauSac);
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-//    }
+
+    public ArrayList<MauSac> TrueListIDMS() {
+        ArrayList<MauSac> list = new ArrayList<>();
+        for (MauSac mauSac : getListMS()) {
+            if (mauSac.isTrangThai() == true) {
+                list.add(mauSac);
+            }
+        }
+        return list;
+    }
+
+    public void deleteMS(int idMS) {
+        mauSacRepo.deleteById(idMS);
+    }
+
+
+    public void addMS(MauSac mauSac) {
+        try {
+            mauSacRepo.save(mauSac);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateMS(MauSac mauSac) {
+        try {
+            mauSacRepo.save(mauSac);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

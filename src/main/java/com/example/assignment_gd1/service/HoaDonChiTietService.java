@@ -59,15 +59,15 @@ public class HoaDonChiTietService {
         }
     }
 
-    public void updatesoluongHDCT(int idHDCT, int soLuongthaydoi){
-        for (int i = 0; i < getListHDCT().size(); i++) {
-            if (getListHDCT().get(i).getIdHDCT() == idHDCT){
-                HoaDonChiTiet hoaDonChiTiet = getListHDCT().get(i);
-                hoaDonChiTiet.setSoLuong(soLuongthaydoi);
-                hoaDonChiTietRepo.save(hoaDonChiTiet);
-            }
-        }
-    }
+//    public void updatesoluongHDCT(int idHDCT, int soLuongthaydoi){
+//        for (int i = 0; i < getListHDCT().size(); i++) {
+//            if (getListHDCT().get(i).getIdHDCT() == idHDCT){
+//                HoaDonChiTiet hoaDonChiTiet = getListHDCT().get(i);
+//                hoaDonChiTiet.setSoLuong(soLuongthaydoi);
+//                hoaDonChiTietRepo.save(hoaDonChiTiet);
+//            }
+//        }
+//    }
     public void capNhatsoluongHDCT(int idHD, int idSPCT, int soluong1){
         for (int i = 0; i < getListHDCT().size(); i++) {
             if (getListHDCT().get(i).getHoaDon().getIdHoaDon() == idHD
@@ -75,6 +75,18 @@ public class HoaDonChiTietService {
                 HoaDonChiTiet hoaDonChiTiet = getListHDCT().get(i);
                 int soLuong =soluong1 + hoaDonChiTiet.getSoLuong();
                 hoaDonChiTiet.setSoLuong(soLuong);
+                hoaDonChiTietRepo.save(hoaDonChiTiet);
+                return;
+            }
+        }
+    }
+    public void updatesoluongHDCT(int idHD, int idSPCT, int soluong1){
+        for (int i = 0; i < getListHDCT().size(); i++) {
+            if (getListHDCT().get(i).getHoaDon().getIdHoaDon() == idHD
+            && getListHDCT().get(i).getSanPhamChiTiet().getIdSPCT() == idSPCT){
+                HoaDonChiTiet hoaDonChiTiet = getListHDCT().get(i);
+//                int soLuong =soluong1 + hoaDonChiTiet.getSoLuong();
+                hoaDonChiTiet.setSoLuong(soluong1);
                 hoaDonChiTietRepo.save(hoaDonChiTiet);
                 return;
             }
